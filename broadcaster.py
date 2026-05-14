@@ -16,6 +16,7 @@ from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 from telethon import TelegramClient
+from telethon.sessions import StringSession
 from telethon.errors import (
     FloodWaitError, ChatWriteForbiddenError, UserBannedInChannelError,
     ChannelPrivateError, PeerFloodError, SlowModeWaitError
@@ -36,7 +37,7 @@ log = logging.getLogger(__name__)
 # ── Config from environment ───────────────────────────────────────────────────
 API_ID            = int(os.environ["TG_API_ID"])
 API_HASH          = os.environ["TG_API_HASH"]
-SESSION_NAME      = os.environ.get("TG_SESSION_NAME", "broadcaster")
+SESSION_STRING    = os.environ["TG_SESSION_STRING"]
 SHEET_ID          = os.environ["GOOGLE_SHEET_ID"]
 
 # Anti-flood settings (seconds)
@@ -172,7 +173,7 @@ async def run_broadcast():
     # Shuffle to vary order between runs
     random.shuffle(active_groups)
 
-    async with TelegramClient(SESSION_NAME, API_ID, API_HASH) as client:
+    async with TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH) as client:
         sent_count = 0
         for i, group in enumerate(active_groups):
             text = pick_template(group, templates)
