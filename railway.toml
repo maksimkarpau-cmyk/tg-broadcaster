@@ -1,0 +1,14 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "python entrypoint.py"
+
+# Cron: запуск каждые 12 часов (настрой под себя)
+# Формат: https://crontab.guru
+# Примеры:
+#   "0 9,21 * * *"   — в 9:00 и 21:00
+#   "0 */6 * * *"    — каждые 6 часов
+#   "0 10 * * 1-5"  — будни в 10:00
+[[services]]
+name = "broadcaster"
