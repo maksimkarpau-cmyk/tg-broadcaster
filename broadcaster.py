@@ -10,6 +10,7 @@ import random
 import logging
 import os
 import json
+import base64
 from datetime import datetime
 
 import gspread
@@ -37,7 +38,6 @@ API_ID            = int(os.environ["TG_API_ID"])
 API_HASH          = os.environ["TG_API_HASH"]
 SESSION_NAME      = os.environ.get("TG_SESSION_NAME", "broadcaster")
 SHEET_ID          = os.environ["GOOGLE_SHEET_ID"]
-GOOGLE_CREDS_JSON = os.environ["GOOGLE_CREDS_JSON"]   # full JSON string of service account
 
 # Anti-flood settings (seconds)
 DELAY_MIN         = int(os.environ.get("DELAY_MIN", "45"))
