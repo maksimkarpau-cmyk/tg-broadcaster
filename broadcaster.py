@@ -64,7 +64,7 @@ def get_sheet_data() -> tuple[list[dict], list[str]]:
         A: key
         B: text
     """
-    creds_info = json.loads(GOOGLE_CREDS_JSON)
+    creds_info = json.loads(base64.b64decode(os.environ["GOOGLE_CREDS_B64"]).decode("utf-8"))
     creds = Credentials.from_service_account_info(
         creds_info,
         scopes=["https://www.googleapis.com/auth/spreadsheets"]
